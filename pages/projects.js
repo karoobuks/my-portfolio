@@ -67,7 +67,7 @@ const projects = [
     title: 'Portfolio Website',
     description: 'This very portfolio website built with Next.js and Tailwind CSS, featuring GitHub-inspired design and modern animations.',
     stack: ['Next.js', 'Tailwind CSS', 'Framer Motion', 'Lucide Icons'],
-    github: 'https://github.com/karoobuks/portfolio',
+    github: 'https://github.com/karoobuks/my-portfolio',
     language: 'JavaScript',
     stars: 4,
     forks: 1,
