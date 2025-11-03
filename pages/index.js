@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Github, Mail, ExternalLink, Code, Database, Globe, Zap } from 'lucide-react'
+import Image from 'next/image'
 
 export default function Home() {
   const stats = [
@@ -61,19 +62,15 @@ export default function Home() {
         {/* Profile Section */}
         <div className="flex justify-center lg:justify-end">
           <div className="relative">
-            <div className="w-64 h-64 lg:w-80 lg:h-80 rounded-2xl bg-gradient-to-br from-github-accent-muted to-github-accent-subtle dark:from-github-dark-accent-muted dark:to-github-dark-accent-subtle border border-github-border-default dark:border-github-dark-border-default overflow-hidden">
-              <div className="w-full h-full flex items-center justify-center">
-                <div className="text-center space-y-4">
-                  <div className="w-20 h-20 mx-auto rounded-full bg-github-accent-emphasis dark:bg-github-dark-accent-emphasis flex items-center justify-center">
-                    <span className="text-2xl font-bold text-white">EO</span>
-                  </div>
-                  <div className="text-muted text-sm px-4">
-                    Add your profile image to
-                    <br />
-                    <code className="text-xs bg-github-neutral-muted dark:bg-github-dark-neutral-muted px-2 py-1 rounded">/public/avatar.jpg</code>
-                  </div>
-                </div>
-              </div>
+            <div className="w-64 h-64 lg:w-80 lg:h-80 rounded-2xl border border-github-border-default dark:border-github-dark-border-default overflow-hidden">
+              <Image
+                src="/manuelobuks.jpg"
+                alt="Emmanuel Obukevwo"
+                width={320}
+                height={320}
+                className="w-full h-full object-cover"
+                priority
+              />
             </div>
             
             {/* Floating Elements */}
