@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-github-border-default dark:border-github-dark-border-default;
+  }
+  
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply bg-github-canvas-default dark:bg-github-dark-canvas-default;
+    @apply text-github-fg-default dark:text-github-dark-fg-default;
+    @apply font-sans antialiased;
+    @apply transition-colors duration-200;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium transition-colors;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-github-accent-emphasis;
+    @apply disabled:pointer-events-none disabled:opacity-50;
+  }
+  
+  .btn-primary {
+    @apply btn bg-github-accent-emphasis hover:bg-github-accent-emphasis/90;
+    @apply text-github-fg-onEmphasis border border-transparent;
+    @apply shadow-sm hover:shadow-md;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-github-canvas-default dark:bg-github-dark-canvas-default;
+    @apply border border-github-border-default dark:border-github-dark-border-default;
+    @apply hover:bg-github-canvas-subtle dark:hover:bg-github-dark-canvas-subtle;
+  }
+  
+  .btn-ghost {
+    @apply btn hover:bg-github-neutral-muted dark:hover:bg-github-dark-neutral-muted;
+  }
+  
+  .card {
+    @apply bg-github-canvas-default dark:bg-github-dark-canvas-default;
+    @apply border border-github-border-default dark:border-github-dark-border-default;
+    @apply rounded-lg shadow-sm;
+  }
+  
+  .card-hover {
+    @apply card transition-all duration-200;
+    @apply hover:shadow-md hover:border-github-border-muted dark:hover:border-github-dark-border-muted;
+  }
+  
+  .text-muted {
+    @apply text-github-fg-muted dark:text-github-dark-fg-muted;
+  }
+  
+  .text-subtle {
+    @apply text-github-fg-subtle dark:text-github-dark-fg-subtle;
+  }
+  
+  .border-default {
+    @apply border-github-border-default dark:border-github-dark-border-default;
+  }
+  
+  .bg-canvas {
+    @apply bg-github-canvas-default dark:bg-github-dark-canvas-default;
+  }
+  
+  .bg-canvas-subtle {
+    @apply bg-github-canvas-subtle dark:bg-github-dark-canvas-subtle;
+  }
+  
+  .link {
+    @apply text-github-accent-fg dark:text-github-dark-accent-fg;
+    @apply hover:underline transition-colors;
+  }
+  
+  .nav-link {
+    @apply text-github-fg-default dark:text-github-dark-fg-default;
+    @apply hover:text-github-accent-fg dark:hover:text-github-dark-accent-fg;
+    @apply transition-colors duration-200;
+  }
+  
+  .nav-link-active {
+    @apply nav-link text-github-accent-fg dark:text-github-dark-accent-fg font-semibold;
+  }
+}
+
+@layer utilities {
+  .animate-in {
+    @apply animate-fade-in;
+  }
+  
+  .slide-up {
+    @apply animate-slide-up;
+  }
+}
