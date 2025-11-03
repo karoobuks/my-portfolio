@@ -2,46 +2,7 @@ import { useState } from 'react'
 import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageCircle, Clock, CheckCircle } from 'lucide-react'
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    const form = e.target
-    const formData = new FormData(form)
-    
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData).toString()
-    })
-    .then(() => {
-      setIsSubmitted(true)
-      setFormData({ name: '', email: '', subject: '', message: '' })
-    })
-    .catch((error) => {
-      console.error('Form submission error:', error)
-      alert('Error submitting form. Please try again.')
-    })
-    .finally(() => {
-      setIsSubmitting(false)
-    })
-  }
 
   const contactMethods = [
     {
@@ -112,112 +73,78 @@ export default function Contact() {
               Send me a message
             </h2>
             
-            {isSubmitted ? (
-              <div className="text-center py-8 space-y-4">
-                <CheckCircle className="h-12 w-12 mx-auto text-github-success-fg dark:text-github-dark-success-fg" />
-                <h3 className="text-lg font-semibold">Message sent successfully!</h3>
-                <p className="text-muted">Thank you for reaching out. I'll get back to you as soon as possible.</p>
-                <button 
-                  onClick={() => setIsSubmitted(false)}
-                  className="btn-secondary px-4 py-2"
-                >
-                  Send another message
-                </button>
-              </div>
-            ) : (
-              <form 
-                name="contact" 
-                method="POST" 
-                action="/contact?success=true"
-                data-netlify="true"
-                onSubmit={handleSubmit} 
-                className="space-y-4"
-              >
-                <input type="hidden" name="form-name" value="contact" />
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium mb-2">
-                      Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-3 py-2 bg-canvas border border-default rounded-md focus:outline-none focus:ring-2 focus:ring-github-accent-emphasis focus:border-transparent"
-                      placeholder="Your full name"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-2">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-3 py-2 bg-canvas border border-default rounded-md focus:outline-none focus:ring-2 focus:ring-github-accent-emphasis focus:border-transparent"
-                      placeholder="your.email@example.com"
-                    />
-                  </div>
-                </div>
-                
+            <form 
+              name="contact" 
+              method="POST" 
+              netlify
+              className="space-y-4"
+            >
+              <input type="hidden" name="form-name" value="contact" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                    Subject *
+                  <label htmlFor="name" className="block text-sm font-medium mb-2">
+                    Name *
                   </label>
                   <input
                     type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
+                    id="name"
+                    name="name"
                     required
                     className="w-full px-3 py-2 bg-canvas border border-default rounded-md focus:outline-none focus:ring-2 focus:ring-github-accent-emphasis focus:border-transparent"
-                    placeholder="What's this about?"
+                    placeholder="Your full name"
                   />
                 </div>
-                
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    Message *
+                  <label htmlFor="email" className="block text-sm font-medium mb-2">
+                    Email *
                   </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
                     required
-                    rows={6}
-                    className="w-full px-3 py-2 bg-canvas border border-default rounded-md focus:outline-none focus:ring-2 focus:ring-github-accent-emphasis focus:border-transparent resize-vertical"
-                    placeholder="Tell me about your project or just say hello..."
+                    className="w-full px-3 py-2 bg-canvas border border-default rounded-md focus:outline-none focus:ring-2 focus:ring-github-accent-emphasis focus:border-transparent"
+                    placeholder="your.email@example.com"
                   />
                 </div>
-                
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="btn-primary px-6 py-3 w-full sm:w-auto"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="h-4 w-4" />
-                      Send Message
-                    </>
-                  )}
-                </button>
-              </form>
-            )}
+              </div>
+              
+              <div>
+                <label htmlFor="subject" className="block text-sm font-medium mb-2">
+                  Subject *
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  required
+                  className="w-full px-3 py-2 bg-canvas border border-default rounded-md focus:outline-none focus:ring-2 focus:ring-github-accent-emphasis focus:border-transparent"
+                  placeholder="What's this about?"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium mb-2">
+                  Message *
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows={6}
+                  className="w-full px-3 py-2 bg-canvas border border-default rounded-md focus:outline-none focus:ring-2 focus:ring-github-accent-emphasis focus:border-transparent resize-vertical"
+                  placeholder="Tell me about your project or just say hello..."
+                />
+              </div>
+              
+              <button
+                type="submit"
+                className="btn-primary px-6 py-3 w-full sm:w-auto"
+              >
+                <Send className="h-4 w-4" />
+                Send Message
+              </button>
+            </form>
           </div>
 
           {/* FAQ Section */}
