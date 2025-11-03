@@ -1,4 +1,5 @@
 import { User, MapPin, Calendar, Github, Mail, Linkedin, ExternalLink, Code, Database, Globe, Zap, Award, BookOpen } from 'lucide-react'
+import Image from 'next/image'
 
 export default function About() {
   const skills = [
@@ -70,10 +71,15 @@ export default function About() {
       {/* Header */}
       <section className="text-center space-y-6">
         <div className="relative inline-block">
-          <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-github-accent-muted to-github-accent-subtle dark:from-github-dark-accent-muted dark:to-github-dark-accent-subtle border-4 border-github-border-default dark:border-github-dark-border-default overflow-hidden">
-            <div className="w-full h-full flex items-center justify-center">
-              <span className="text-3xl font-bold text-github-accent-fg dark:text-github-dark-accent-fg">EO</span>
-            </div>
+          <div className="w-32 h-32 mx-auto rounded-full border-4 border-github-border-default dark:border-github-dark-border-default overflow-hidden">
+            <Image
+              src="/manuelobuks.jpg"
+              alt="Emmanuel Obukevwo"
+              width={128}
+              height={128}
+              className="w-full h-full object-cover"
+              priority
+            />
           </div>
           <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-github-success-emphasis dark:bg-github-dark-success-emphasis rounded-full flex items-center justify-center">
             <div className="w-4 h-4 bg-white rounded-full"></div>
