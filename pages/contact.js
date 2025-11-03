@@ -18,29 +18,27 @@ export default function Contact() {
     })
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const handleSubmit = (e) => {
+    const form = e.target
     setIsSubmitting(true)
     
-    try {
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          'form-name': 'contact',
-          ...formData
-        }).toString()
-      })
-      
-      if (response.ok) {
-        setIsSubmitted(true)
-        setFormData({ name: '', email: '', subject: '', message: '' })
-      }
-    } catch (error) {
-      console.error('Form submission error:', error)
-    } finally {
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    })
+    .then(() => {
+      setIsSubmitted(true)
+      setFormData({ name: '', email: '', subject: '', message: '' })
+    })
+    .catch(() => {
+      alert('Error submitting form. Please try again.')
+    })
+    .finally(() => {
       setIsSubmitting(false)
-    }
+    })
+    
+    e.preventDefault()
   }
 
   const contactMethods = [
@@ -128,8 +126,8 @@ export default function Contact() {
               <form 
                 name="contact" 
                 method="POST" 
-                data-netlify="true" 
-                data-netlify-honeypot="bot-field"
+                action="/contact?success=true"
+                data-netlify="true"
                 onSubmit={handleSubmit} 
                 className="space-y-4"
               >
