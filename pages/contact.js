@@ -19,26 +19,28 @@ export default function Contact() {
   }
 
   const handleSubmit = (e) => {
-    const form = e.target
+    e.preventDefault()
     setIsSubmitting(true)
+    
+    const form = e.target
+    const formData = new FormData(form)
     
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(new FormData(form)).toString()
+      body: new URLSearchParams(formData).toString()
     })
     .then(() => {
       setIsSubmitted(true)
       setFormData({ name: '', email: '', subject: '', message: '' })
     })
-    .catch(() => {
+    .catch((error) => {
+      console.error('Form submission error:', error)
       alert('Error submitting form. Please try again.')
     })
     .finally(() => {
       setIsSubmitting(false)
     })
-    
-    e.preventDefault()
   }
 
   const contactMethods = [
