@@ -1,8 +1,51 @@
 import { useState } from 'react'
 import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageCircle, Clock, CheckCircle } from 'lucide-react'
+import emailjs from '@emailjs/browser'
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_email: process.env.NEXT_PUBLIC_TO_EMAIL
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+      )
+      
+      setShowSuccess(true)
+      setFormData({ name: '', email: '', subject: '', message: '' })
+    } catch (error) {
+      console.error('Email send failed:', error)
+      alert('Failed to send message. Please try again or use the email link below.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   const contactMethods = [
     {
@@ -79,25 +122,14 @@ export default function Contact() {
                 <h3 className="text-lg font-semibold">Message sent successfully!</h3>
                 <p className="text-muted">Thank you for reaching out. I'll get back to you as soon as possible.</p>
                 <button 
-                  onClick={() => {
-                    setShowSuccess(false)
-                    router.push('/contact', undefined, { shallow: true })
-                  }}
+                  onClick={() => setShowSuccess(false)}
                   className="btn-secondary px-4 py-2"
                 >
                   Send another message
                 </button>
               </div>
             ) : (
-              <form 
-                name="contact" 
-                method="POST" 
-                data-netlify="true"
-                data-netlify-honeypot="bot-field"
-                className="space-y-4"
-              >
-                <input type="hidden" name="bot-field" />
-                <input type="hidden" name="form-name" value="contact" />
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -107,6 +139,8 @@ export default function Contact() {
                       type="text"
                       id="name"
                       name="name"
+                      value={formData.name}
+                      onChange={handleChange}
                       required
                       className="w-full px-3 py-2 bg-canvas border border-default rounded-md focus:outline-none focus:ring-2 focus:ring-github-accent-emphasis focus:border-transparent"
                       placeholder="Your full name"
@@ -120,6 +154,8 @@ export default function Contact() {
                       type="email"
                       id="email"
                       name="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       required
                       className="w-full px-3 py-2 bg-canvas border border-default rounded-md focus:outline-none focus:ring-2 focus:ring-github-accent-emphasis focus:border-transparent"
                       placeholder="your.email@example.com"
@@ -135,6 +171,8 @@ export default function Contact() {
                     type="text"
                     id="subject"
                     name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
                     required
                     className="w-full px-3 py-2 bg-canvas border border-default rounded-md focus:outline-none focus:ring-2 focus:ring-github-accent-emphasis focus:border-transparent"
                     placeholder="What's this about?"
@@ -148,6 +186,8 @@ export default function Contact() {
                   <textarea
                     id="message"
                     name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     required
                     rows={6}
                     className="w-full px-3 py-2 bg-canvas border border-default rounded-md focus:outline-none focus:ring-2 focus:ring-github-accent-emphasis focus:border-transparent resize-vertical"
@@ -157,10 +197,20 @@ export default function Contact() {
                 
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="btn-primary px-6 py-3 w-full sm:w-auto"
                 >
-                  <Send className="h-4 w-4" />
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="h-4 w-4" />
+                      Send Message
+                    </>
+                  )}
                 </button>
               </form>
             )}
