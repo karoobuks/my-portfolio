@@ -1,16 +1,8 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { useState } from 'react'
 import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageCircle, Clock, CheckCircle } from 'lucide-react'
 
 export default function Contact() {
-  const router = useRouter()
   const [showSuccess, setShowSuccess] = useState(false)
-
-  useEffect(() => {
-    if (router.query.success) {
-      setShowSuccess(true)
-    }
-  }, [router.query])
 
   const contactMethods = [
     {
@@ -100,10 +92,11 @@ export default function Contact() {
               <form 
                 name="contact" 
                 method="POST" 
-                action="/contact?success=true"
                 data-netlify="true"
+                data-netlify-honeypot="bot-field"
                 className="space-y-4"
               >
+                <input type="hidden" name="bot-field" />
                 <input type="hidden" name="form-name" value="contact" />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
