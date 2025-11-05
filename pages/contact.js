@@ -31,8 +31,7 @@ export default function Contact() {
           from_name: formData.name,
           from_email: formData.email,
           subject: formData.subject,
-          message: formData.message,
-          to_email: process.env.NEXT_PUBLIC_TO_EMAIL
+          message: formData.message
         },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
       )
