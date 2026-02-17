@@ -64,7 +64,7 @@ const projects = [
   //   lastUpdated: '4 days ago'
   // },
     {
-    title: 'quickdeltabite',
+    title: 'Quickdeltabite',
     description: 'Order food, manage restaurants, deliver meals, and oversee operations all in one platform.',
     stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Pusher', 'cloudinary'],
     link: 'https://quickdeltabite.vercel.app',
