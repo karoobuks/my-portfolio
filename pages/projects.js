@@ -63,6 +63,18 @@ const projects = [
   //   status: 'public',
   //   lastUpdated: '4 days ago'
   // },
+    {
+    title: 'quickdeltabite',
+    description: 'Order food, manage restaurants, deliver meals, and oversee operations all in one platform.',
+    stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Pusher', 'cloudinary'],
+    link: 'https://quickdeltabite.vercel.app',
+    github: 'https://github.com/karoobuks/quickbite',
+    language: 'TypeScript',
+    stars: 22,
+    forks: 5,
+    status: 'public',
+    lastUpdated: '4 days ago'
+  },
   {
     title: 'Portfolio Website',
     description: 'This very portfolio website built with Next.js and Tailwind CSS, featuring GitHub-inspired design and modern animations.',
