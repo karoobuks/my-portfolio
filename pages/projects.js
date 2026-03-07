@@ -63,10 +63,10 @@ const projects = [
   //   status: 'public',
   //   lastUpdated: '4 days ago'
   // },
-    {
-    title: 'Quickdeltabite',
+  {
+    title: 'Quickbite',
     description: 'Order food, manage restaurants, deliver meals, and oversee operations all in one platform.',
-    stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Pusher', 'cloudinary'],
+    stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Pusher', 'Cloudinary'],
     link: 'https://quickdeltabite.vercel.app',
     github: 'https://github.com/karoobuks/quickbite',
     language: 'TypeScript',
@@ -80,7 +80,7 @@ const projects = [
     description: 'This very portfolio website built with Next.js and Tailwind CSS, featuring GitHub-inspired design and modern animations.',
     stack: ['Next.js', 'Tailwind CSS', 'Framer Motion', 'Lucide Icons'],
     link: 'https://manuelobuks.vercel.app',
-    github: 'https://github.com/karoobuks/my-portfolio',  
+    github: 'https://github.com/karoobuks/my-portfolio',
     language: 'JavaScript',
     stars: 4,
     forks: 1,
@@ -95,10 +95,10 @@ export default function Projects() {
   const [viewMode, setViewMode] = useState('grid')
 
   const languages = ['all', ...new Set(projects.map(p => p.language))]
-  
+
   const filteredProjects = projects.filter(project => {
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.description.toLowerCase().includes(searchTerm.toLowerCase())
+      project.description.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesLanguage = selectedLanguage === 'all' || project.language === selectedLanguage
     return matchesSearch && matchesLanguage
   })
@@ -164,21 +164,19 @@ export default function Projects() {
         <div className="flex items-center space-x-2">
           <button
             onClick={() => setViewMode('grid')}
-            className={`p-2 rounded-md transition-colors ${
-              viewMode === 'grid'
+            className={`p-2 rounded-md transition-colors ${viewMode === 'grid'
                 ? 'bg-github-accent-subtle dark:bg-github-dark-accent-subtle text-github-accent-fg dark:text-github-dark-accent-fg'
                 : 'hover:bg-github-neutral-muted dark:hover:bg-github-dark-neutral-muted'
-            }`}
+              }`}
           >
             <Grid className="h-4 w-4" />
           </button>
           <button
             onClick={() => setViewMode('list')}
-            className={`p-2 rounded-md transition-colors ${
-              viewMode === 'list'
+            className={`p-2 rounded-md transition-colors ${viewMode === 'list'
                 ? 'bg-github-accent-subtle dark:bg-github-dark-accent-subtle text-github-accent-fg dark:text-github-dark-accent-fg'
                 : 'hover:bg-github-neutral-muted dark:hover:bg-github-dark-neutral-muted'
-            }`}
+              }`}
           >
             <List className="h-4 w-4" />
           </button>
@@ -193,11 +191,10 @@ export default function Projects() {
           <p className="text-muted">Try adjusting your search or filter criteria</p>
         </div>
       ) : (
-        <div className={`grid gap-6 ${
-          viewMode === 'grid' 
-            ? 'grid-cols-1 lg:grid-cols-2' 
+        <div className={`grid gap-6 ${viewMode === 'grid'
+            ? 'grid-cols-1 lg:grid-cols-2'
             : 'grid-cols-1'
-        }`}>
+          }`}>
           {filteredProjects.map((project) => (
             <ProjectCard key={project.title} project={project} />
           ))}
